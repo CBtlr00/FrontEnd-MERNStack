@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    dispatch({ type: "LOGOUT" });
+  };
 
   return (
     <div className="navbar">
@@ -11,10 +16,10 @@ const Navbar = () => {
         <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
           <span className="logo">Irish Airways</span>
         </Link>
-        {user ? user.username : (
+        {user ? <button className="navButton" onClick={handleClick}>Logout</button> : (
           <div className="navItems">
-            <button className="navButton">Register</button>
-            <button className="navButton">Login</button>
+            <button className="navButton"><Link to={"/register"}>Register</Link></button>
+            <button className="navButton"><Link to={"/login"}>Login</Link></button>
           </div>
         )}
       </div>

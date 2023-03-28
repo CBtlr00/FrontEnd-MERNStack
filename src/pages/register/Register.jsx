@@ -2,11 +2,12 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import "./login.css";
+import "./register.css";
 
-const Login = () => {
+const Register = () => {
   const [credentials, setCredentials] = useState({
     username: undefined,
+    email: undefined,
     password: undefined,
   });
 
@@ -20,24 +21,31 @@ const Login = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    dispatch({ type: "LOGIN_START" });
+    dispatch({ type: "REGISTER" });
     try {
-      const res = await axios.post("/auth/login", credentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+      const res = await axios.post("/auth/register", credentials);
+      dispatch({ type: "REGISTER_SUCCESS", payload: res.data.details });
       navigate("/")
     } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+      dispatch({ type: "REGISTER_FAILURE", payload: err.response.data });
     }
   };
 
 
   return (
-    <div className="login">
+    <div className="register">
       <div className="lContainer">
         <input
           type="text"
           placeholder="username"
           id="username"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
+          type="text"
+          placeholder="email"
+          id="email"
           onChange={handleChange}
           className="lInput"
         />
@@ -49,13 +57,13 @@ const Login = () => {
           className="lInput"
         />
         <button disabled={loading} onClick={handleClick} className="lButton">
-          Login
+          Register
         </button>
         {error && <span>{error.message}</span>}
-        <div>Don't have an account yet? <Link to={"/register"}>Register now</Link></div>
+        <div>Already have an account? <Link to={"/login"}>Sign in</Link></div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
