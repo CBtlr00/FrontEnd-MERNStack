@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const useFetch = () => {
+const useFetch = (url) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -10,7 +10,7 @@ const useFetch = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("https://irishairways.adaptable.app/api");
+        const res = await axios.get("https://irishairways.adaptable.app/api"+url);
         setData(res.data);
       } catch (err) {
         setError(err);
@@ -18,12 +18,12 @@ const useFetch = () => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, ["https://irishairways.adaptable.app/api"+url]);
 
   const reFetch = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://irishairways.adaptable.app/api");
+      const res = await axios.get("https://irishairways.adaptable.app/api"+url);
       setData(res.data);
     } catch (err) {
       setError(err);
