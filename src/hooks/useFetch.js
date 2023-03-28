@@ -18,7 +18,7 @@ const useFetch = (url) => {
       setLoading(false);
     };
     fetchData();
-  }, ["https://irishairways.adaptable.app/api"+url]);
+  }, []);
 
   const reFetch = async () => {
     setLoading(true);
