@@ -10,7 +10,7 @@ const SearchItem = ({ item }) => {
         <span className="siDistance">{item.distance}m from center</span>
         <span className="siTaxiOp">Free airport taxi</span>
         <span className="siSubtitle">
-          Studio Apartment with Air conditioning
+          Luxurious {item.type} with air conditioning
         </span>
         <span className="siFeatures">{item.desc}</span>
         <span className="siCancelOp">Free cancellation </span>
@@ -20,7 +20,7 @@ const SearchItem = ({ item }) => {
       </div>
       <div className="siDetails">
         {item.rating && <div className="siRating">
-          <span>Excellent</span>
+          <span>Good</span>
           <button>{item.rating}</button>
         </div>}
         <div className="siDetailTexts">

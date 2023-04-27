@@ -7,11 +7,24 @@ import { useContext, useState } from "react";
 import { SearchContext } from "../../context/SearchContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
 
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const { data } = useFetch(`/hotels/room/${hotelId}`);
   const { dates } = useContext(SearchContext);
+  const KEY = "pk_test_51MvmfdKRShjIhSJdXp37DdO4vHi1l3AWqAp0o0dSyR4tBLZIogLpA2JNfAmL3DlzyhTvSaOwBML1c6ht8Z1CBz3S00RocQKvjo";
+  const [setStripeToken] = useState(null);
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+  function dayDifference(date1, date2) {
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+    return diffDays;
+  }
 
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -28,6 +41,8 @@ const Reserve = ({ setOpen, hotelId }) => {
 
     return dates;
   };
+  
+  const days = dayDifference(dates[0].endDate, dates[0].startDate);
 
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
 
@@ -65,6 +80,16 @@ const Reserve = ({ setOpen, hotelId }) => {
       navigate("/");
     } catch (err) {}
   };
+
+  const totalPrice = selectedRooms.reduce((acc, roomId) => {
+    const room = data.find((item) => item.roomNumbers.some((roomNumber) => roomNumber._id === roomId));
+    if (room) {
+      const price = room.price * days;
+      return acc + price;
+    }
+    return acc;
+  }, 0);
+
   return (
     <div className="reserve">
       <div className="rContainer">
@@ -99,9 +124,19 @@ const Reserve = ({ setOpen, hotelId }) => {
             </div>
           </div>
         ))}
-        <button onClick={handleClick} className="rButton">
-          Reserve Now!
-        </button>
+        <StripeCheckout
+          name="Irish Airways"
+          billingAddress
+          shippingAddress
+          description={`Your total is €${totalPrice}`}
+          amount={totalPrice}
+          token={onToken}
+          stripeKey={KEY}
+            >
+              <button onClick={handleClick} className="rButton">
+                Reserve Now!
+              </button>
+            </StripeCheckout>
       </div>
     </div>
   );
