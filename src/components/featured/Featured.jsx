@@ -2,9 +2,13 @@ import useFetch from "../../hooks/useFetch";
 import "./featured.css";
 
 const Featured = () => {
-  const { data, loading } = useFetch(
-    "/hotels/countByCity?cities=dublin,new york,london"
-  );
+  const cities = ["Dublin", "New York", "London"];
+  const { data, loading } = useFetch(`/hotels/countByCity?cities=${cities.join(",")}`);
+
+  const getCityLink = (city) => {
+    // This function returns the link to the page that lists all hotels for the given city
+    return `/hotels?city=${city}`;
+  };
 
   return (
     <div className="featured">
@@ -23,7 +27,6 @@ const Featured = () => {
               <h2>{data[0]} properties</h2>
             </div>
           </div>
-
           <div className="featuredItem">
             <img
               src="https://cf.bstatic.com/xdata/images/city/max500/690334.webp?k=b99df435f06a15a1568ddd5f55d239507c0156985577681ab91274f917af6dbb&o="

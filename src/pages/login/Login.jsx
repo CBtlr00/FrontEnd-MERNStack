@@ -22,17 +22,19 @@ const Login = () => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("/auth/login", credentials);
+      const res = await axios.post("https://irishairways.adaptable.app/api/auth/login", credentials);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
       navigate("/")
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
     }
   };
+  
 
 
   return (
     <div className="login">
+      <h1 className="header_login">Login</h1>
       <div className="lContainer">
         <input
           type="text"
@@ -52,7 +54,8 @@ const Login = () => {
           Login
         </button>
         {error && <span>{error.message}</span>}
-        <div>Don't have an account yet? <Link to={"/register"}>Register now</Link></div>
+        <div><Link to={"/"} className="back_btn">Back</Link></div>
+        <div className="register_btn">Don't have an account yet? <Link to={"/register"}>Register now</Link></div>
       </div>
     </div>
   );

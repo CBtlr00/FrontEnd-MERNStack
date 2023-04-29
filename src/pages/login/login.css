@@ -1,32 +1,70 @@
 .login {
-  height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+}
+
+.header_login {
+  font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
 .lContainer {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.lInput{
-  height: 30px;
-  padding: 10px;
-}
-
-.lButton {
-  border: none;
-  padding: 10px 20px;
-  background-color: #0071c2;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  width: 25rem;
+  padding: 2rem;
+  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.lButton:disabled{
-  background-color: #0071c28c;
+.lInput {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.lButton {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.lButton:disabled {
+  opacity: 0.7;
   cursor: not-allowed;
+}
+
+.back_btn {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #0077ff;
+  text-decoration: none;
+}
+
+.register_btn {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.register_btn a {
+  color: #0077ff;
+  text-decoration: none;
+}
+
+.register_btn a:hover {
+  text-decoration: underline;
 }

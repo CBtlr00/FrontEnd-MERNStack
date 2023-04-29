@@ -16,7 +16,12 @@ const Navbar = () => {
         <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
           <span className="logo">Irish Airways</span>
         </Link>
-        {user ? <button className="navButton" onClick={handleClick}>Logout</button> : (
+        {user ? 
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <h1 className="username_txt">Hello, {user.username}</h1>
+            <button className="navButton" onClick={handleClick}>Logout</button>
+          </div>
+         : (
           <div className="navItems">
             <button className="navButton"><Link to={"/register"}>Register</Link></button>
             <button className="navButton"><Link to={"/login"}>Login</Link></button>

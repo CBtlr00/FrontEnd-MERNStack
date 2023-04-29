@@ -5,15 +5,17 @@ import {
   faPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faHotel,faHouseUser,faBuildingColumns,faUmbrellaBeach, faMountainCity} from "@fortawesome/free-solid-svg-icons"
 import "./header.css";
 import { DateRange } from "react-date-range";
 import { useContext, useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
+import { Link } from 'react-router-dom';
 
 const Header = ({ type }) => {
   const [destination, setDestination] = useState("");
@@ -46,7 +48,13 @@ const Header = ({ type }) => {
   };
 
   const { dispatch } = useContext(SearchContext);
-
+  const handleInput=()=>{
+        if(destination=="" ){
+            alert("Please Select destination and Dates..")
+        }else{
+            handleSearch()
+        }
+    }
   const handleSearch = () => {
     dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
     navigate("/hotels", { state: { destination, dates, options } });
@@ -59,12 +67,67 @@ const Header = ({ type }) => {
           type === "list" ? "headerContainer listMode" : "headerContainer"
         }
       >
-        <div className="headerList">
+       <div className="headerList">
+                    <div className="headerListItem active">
+                    <FontAwesomeIcon icon={ faHouseUser} />
+                    <span>
+                    <NavLink
+              to="/"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              Home
+            </NavLink>
+                    </span>
+
+                    </div>
+                    <div className="headerListItem active">
+                    <FontAwesomeIcon icon={ faHotel} />
+                    <span>
+                    <NavLink
+              to="/allhotels"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              Hotels
+            </NavLink>
+                    </span>
+                    
+                    </div>
+                    <div className="headerListItem active">
+                    <FontAwesomeIcon icon={faMountainCity}/>
+                    <span>
+                    <NavLink
+              to="/allapartments"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              Apartments
+            </NavLink>
+                    </span>
+                    
+                    </div>
+                    <div className="headerListItem active">
+                    <FontAwesomeIcon icon={ faBuildingColumns} />
+                    <span>
+                    <NavLink
+              to="/allvillas"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              Villas
+            </NavLink>
+                    </span>
+                    
+                    </div>
           <div className="headerListItem active">
-            <FontAwesomeIcon icon={faBed} />
-            <span>Stays</span>
+            <FontAwesomeIcon icon={faUmbrellaBeach} />
+            <span>
+              <NavLink
+              to="/allresorts"
+              style={{ color: "inherit", textDecoration: "none" }}
+              >
+                Resorts
+              </NavLink>
+            </span>      
           </div>
-          <div className="headerListItem">
+          <div className="headerListItem active">
             <FontAwesomeIcon icon={faPlane} />
             <span>Flights</span>
           </div>
@@ -77,7 +140,7 @@ const Header = ({ type }) => {
             <p className="headerDesc">
               Search deals on hotels, apartments, and much more...
             </p>
-            {!user && <button className="headerBtn">Sign in / Register</button>}
+            {!user && <Link to="/register" className="headerBtn">Sign in / Register</Link>}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
@@ -183,7 +246,7 @@ const Header = ({ type }) => {
                 )}
               </div>
               <div className="headerSearchItem">
-                <button className="headerBtn" onClick={handleSearch}>
+                <button className="headerBtn" onClick={handleInput}>
                   Search
                 </button>
               </div>

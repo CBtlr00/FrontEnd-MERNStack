@@ -23,7 +23,7 @@ const Register = () => {
     e.preventDefault();
     dispatch({ type: "REGISTER" });
     try {
-      const res = await axios.post("/auth/register", credentials);
+      const res = await axios.post("https://irishairways.adaptable.app/api/auth/register", credentials);
       dispatch({ type: "REGISTER_SUCCESS", payload: res.data.details });
       navigate("/")
     } catch (err) {
@@ -34,6 +34,7 @@ const Register = () => {
 
   return (
     <div className="register">
+      <div className="header_register">Register</div>
       <div className="lContainer">
         <input
           type="text"
@@ -60,7 +61,8 @@ const Register = () => {
           Register
         </button>
         {error && <span>{error.message}</span>}
-        <div>Already have an account? <Link to={"/login"}>Sign in</Link></div>
+        <div><Link to={"/"} className="back_btn">Back</Link></div>
+        <div className="login_btn">Already have an account? <Link to={"/login"}>Sign in</Link></div>
       </div>
     </div>
   );

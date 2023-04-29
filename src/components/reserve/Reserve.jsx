@@ -11,13 +11,34 @@ import StripeCheckout from "react-stripe-checkout";
 
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
-  const { data } = useFetch(`/hotels/room/${hotelId}`);
+  const { data } = useFetch(`hotels/room/${hotelId}`);
   const { dates } = useContext(SearchContext);
   const KEY = "pk_test_51MvmfdKRShjIhSJdXp37DdO4vHi1l3AWqAp0o0dSyR4tBLZIogLpA2JNfAmL3DlzyhTvSaOwBML1c6ht8Z1CBz3S00RocQKvjo";
+<<<<<<< HEAD
+  const [stripeToken, setStripeToken] = useState(null);
+  const onToken = async (token) => {
+    setStripeToken(token);
+    try {
+      await Promise.all(
+        selectedRooms.map((roomId) => {
+          const res = axios.put(`https://irishairways.adaptable.app/api/rooms/availability/${roomId}`, {
+            dates: alldates,
+          });
+          return res.data;
+        })
+      );
+      setOpen(false);
+      navigate("/");
+      window.alert("Successfully booked!");
+    } catch (err) {}
+  };
+  
+=======
   const [setStripeToken] = useState(null);
   const onToken = (token) => {
     setStripeToken(token);
   };
+>>>>>>> c36f1270eb3e78c10c871df7ebb76b5306d4d4e4
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
@@ -129,6 +150,14 @@ const Reserve = ({ setOpen, hotelId }) => {
           billingAddress
           shippingAddress
           description={`Your total is €${totalPrice}`}
+<<<<<<< HEAD
+          amount={totalPrice * 100}
+          token={onToken}
+          stripeKey={KEY}
+        >
+          <button className="rButton">Reserve Now!</button>
+        </StripeCheckout> 
+=======
           amount={totalPrice}
           token={onToken}
           stripeKey={KEY}
@@ -137,6 +166,7 @@ const Reserve = ({ setOpen, hotelId }) => {
                 Reserve Now!
               </button>
             </StripeCheckout>
+>>>>>>> c36f1270eb3e78c10c871df7ebb76b5306d4d4e4
       </div>
     </div>
   );

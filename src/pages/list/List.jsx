@@ -10,7 +10,7 @@ import useFetch from "../../hooks/useFetch";
 
 const List = () => {
   const location = useLocation();
-  const [destination] = useState(location.state.destination);
+  const [destination, setDestination] = useState(location.state.destination);
   const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
   const [options] = useState(location.state.options);
@@ -35,7 +35,12 @@ const List = () => {
             <h1 className="lsTitle">Search</h1>
             <div className="lsItem">
               <label>Destination</label>
-              <input placeholder={destination} type="text" />
+              <input 
+                placeholder={destination} 
+                type="text" 
+                value={destination} // add value attribute
+                onChange={(e) => setDestination(e.target.value)} // add onChange event handler
+              />
             </div>
             <div className="lsItem">
               <label>Check-in Date</label>
