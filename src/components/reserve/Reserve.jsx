@@ -14,7 +14,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   const { data } = useFetch(`/hotels/room/${hotelId}`);
   const { dates } = useContext(SearchContext);
   const KEY = "pk_test_51MvmfdKRShjIhSJdXp37DdO4vHi1l3AWqAp0o0dSyR4tBLZIogLpA2JNfAmL3DlzyhTvSaOwBML1c6ht8Z1CBz3S00RocQKvjo";
-  const [stripeToken, setStripeToken] = useState(null);
+  const [setStripeToken] = useState(null);
   const onToken = async (token) => {
     setStripeToken(token);
     try {
@@ -79,21 +79,6 @@ const Reserve = ({ setOpen, hotelId }) => {
   };
 
   const navigate = useNavigate();
-
-  const handleClick = async () => {
-    try {
-      await Promise.all(
-        selectedRooms.map((roomId) => {
-          const res = axios.put(`/rooms/availability/${roomId}`, {
-            dates: alldates,
-          });
-          return res.data;
-        })
-      );
-      setOpen(false);
-      navigate("/");
-    } catch (err) {}
-  };
 
   const totalPrice = selectedRooms.reduce((acc, roomId) => {
     const room = data.find((item) => item.roomNumbers.some((roomNumber) => roomNumber._id === roomId));

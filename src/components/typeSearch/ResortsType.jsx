@@ -1,14 +1,10 @@
 import Footer from "../footer/Footer"
-import Header from "../header/Header"
 import Navbar from "../navbar/Navbar"
 import "./resortstype.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 import {faHotel,faHouseUser,faBuildingColumns,faUmbrellaBeach} from "@fortawesome/free-solid-svg-icons"
-import {faPlaneDeparture} from "@fortawesome/free-solid-svg-icons"
-import {faCar} from "@fortawesome/free-solid-svg-icons"
 import {faMountainCity} from "@fortawesome/free-solid-svg-icons"
-import {faTaxi} from "@fortawesome/free-solid-svg-icons"
 import {faCalendarDays} from "@fortawesome/free-solid-svg-icons"
 import {faPerson} from "@fortawesome/free-solid-svg-icons"
 import {DateRange} from "react-date-range"
@@ -58,7 +54,7 @@ const ResortsType=({type})=>{
     }
     const {dispatch}=useContext(SearchContext)
     const handleInput=()=>{
-        if(destination==""){
+        if(destination===""){
             alert("Please enter destination")
         }else{
             handleSearch()

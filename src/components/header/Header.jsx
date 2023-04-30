@@ -49,7 +49,7 @@ const Header = ({ type }) => {
 
   const { dispatch } = useContext(SearchContext);
   const handleInput=()=>{
-        if(destination=="" ){
+        if(destination==="" ){
             alert("Please Select destination and Dates..")
         }else{
             handleSearch()

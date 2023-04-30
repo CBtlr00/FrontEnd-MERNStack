@@ -5,11 +5,6 @@ const Featured = () => {
   const cities = ["Dublin", "New York", "London"];
   const { data, loading } = useFetch(`/hotels/countByCity?cities=${cities.join(",")}`);
 
-  const getCityLink = (city) => {
-    // This function returns the link to the page that lists all hotels for the given city
-    return `/hotels?city=${city}`;
-  };
-
   return (
     <div className="featured">
       {loading ? (
