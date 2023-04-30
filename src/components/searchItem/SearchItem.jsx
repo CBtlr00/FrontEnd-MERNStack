@@ -20,13 +20,9 @@ const SearchItem = ({ item }) => {
       </div>
       <div className="siDetails">
         {item.rating && <div className="siRating">
-<<<<<<< HEAD
           <span>
             {item.rating <= 3 ? "Good" : item.rating <= 4 ? "Very Good": item.rating === 2 ? "Basic" : "Excellent"}
           </span>
-=======
-          <span>Good</span>
->>>>>>> c36f1270eb3e78c10c871df7ebb76b5306d4d4e4
           <button>{item.rating}</button>
         </div>}
         <div className="siDetailTexts">
